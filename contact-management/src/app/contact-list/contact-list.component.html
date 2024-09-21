@@ -1,0 +1,99 @@
+<div class="main">
+  <div class="container">
+    <button (click)="addNewContact()">Add new contact</button>
+
+    <input
+      type="search"
+      id="SerchBar"
+      (keyup)="emitEvent($event)"
+      #inputSearchbar
+    />
+  </div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Id</th>
+        <th scope="col">contact name</th>
+        <th scope="col">email</th>
+        <th scope="col">Phone number</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody appIntersactionOnbserver   [itemHeight]="50"
+    [totalItems]="totalItems"
+    [loadedItems]="100"
+    (loadMore)="onLoadMore()"
+    style="height: 400px; overflow-y: auto;" >
+      <ng-container *ngIf="dataList$ | async as dataItems">
+        @if (dataItems.length > 0) { @for (item of dataItems; track $index) {
+        <tr [formGroup]="newContactForm">
+          <td></td>
+          <td>
+            @if (item.id === editableRowData.id) {
+            <input type="text" formControlName="id" />
+            }@else {
+            {{ item.id }}
+            }
+          </td>
+          <td>
+            @if (item.id === editableRowData.id) {
+            <input type="text" formControlName="contactName" />
+            }@else {
+            {{ item.contact_name }}
+            }
+          </td>
+          <td>
+            @if (item.id === editableRowData.id) {
+            <input type="text" formControlName="email" />
+            }@else {
+            {{ item.email }}
+            }
+          </td>
+          <td>
+            @if (item.id === editableRowData.id) {
+            <input type="text" formControlName="phoneNumber" />
+            }@else {
+            {{ item.phone_number }}
+            }
+          </td>
+          <td>
+            @if (item.id === editableRowData.id) {
+            <button (click)="updateData()">Update</button>
+
+            }@else {
+            <button (click)="editData(item)">Edit</button>
+            }
+          </td>
+        </tr>
+        } }@else {
+        <p>No items found</p>
+        }
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<!-- Add Info form -->
+<ng-container>
+  <div class="form">
+    <form>
+      <div class="row">
+        <label for="id">id</label>
+        <span>{{ this.newContactForm.get("id")?.value }}</span>
+      </div>
+      <div class="row">
+        <label for="contactName">Contact Name</label>
+        <input type="text" name="contactName" id="contactName" />
+      </div>
+      <div class="row">
+        <label for="phoneNumber">PhoneNumber</label>
+        <input type="text" name="phoneNumber" id="phoneNumber" />
+      </div>
+      <div class="row">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" />
+      </div>
+    </form>
+  </div>
+</ng-container>

@@ -1,0 +1,29 @@
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>{{ article().title }}</mat-card-title>
+      <mat-card-subtitle>
+        <div class="article-info d-flex justify-content-between w-100">
+          <span>
+            {{ article().author }}
+          </span>
+          <span>
+            {{ article().publishedAt }}
+          </span>
+        </div>
+      </mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+  <div class="image-block d-flex justify-content-center">
+    <img
+      mat-card-sm-image
+      [src]="article().urlToImage"
+      onerror="this.src='https://material.angular.io/assets/img/examples/shiba2.jpg'"
+    />
+  </div>
+  <mat-card-content>{{ article().description }}</mat-card-content>
+  <mat-card-footer>
+    <button mat-raised-button class="mx-3" (click)="navigateToList()">Back</button>
+    <a mat-raised-button [href]="article().url" target="_blank">Read Full article</a>
+  </mat-card-footer>
+</mat-card>

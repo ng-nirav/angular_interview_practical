@@ -1,0 +1,15 @@
+.card-surface {
+  width: 400px;
+  margin-bottom: 8px;
+  height: 250px;
+  cursor: pointer;
+
+  .mat-mdc-card-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,0 +1,62 @@
+<div class="container row">
+  <div class="col-6">
+    <h1>Parent Component</h1>
+    <span> (default Change Detection)</span>
+    <div class="col-6 mx-3">
+      <h4>Primitive Data Type</h4>
+      <p><b>value</b>: {{ primitiveData }}</p>
+      <button (click)="updatePrimitiveData()" class="btn btn-success">
+        Primitive Data
+      </button>
+    </div>
+    <div class="col-6 mx-3">
+      <h4>Non-primitive Data type</h4>
+      <p><b>randomNumber</b> : {{ nonPrmitiveData.randomNumber }}</p>
+      <p><b>randomText</b>: {{ nonPrmitiveData.randomText }}</p>
+      <div class="row">
+        <span
+          >Not Invoke Change Detection as We are not updating Referece just
+          changing value here(OnPush Change Detection on child)</span
+        >
+        <button
+          class="btn btn-danger col-auto"
+          (click)="updateNonPrimitiveDataByValue()"
+        >
+          Non-primitive
+        </button>
+      </div>
+      <br />
+      <div class="row">
+        <span>Referece Change it update the value on child component</span>
+        <button
+          (click)="updateNonPrimitiveDataByRef()"
+          class="btn btn-success col-auto"
+        >
+          Non-Primitive Data
+        </button>
+      </div>
+    </div>
+    <div class="row pt-2 mx-2">
+      <h4>
+        Service State(Singleton Service state - Root level) shared Same instance
+      </h4>
+      <p><b>Counter Value</b>: {{ displayCount }}</p>
+      <span>Updating the count it will update to all the places where we have injected Service as root level</span>
+      <button class="btn btn-success col-auto" (click)="updateCounter()">
+        Update Counter State
+      </button>
+      <div class="row">
+        <h4>
+          Service State from Shared Component(sharing Same state- root level)
+        </h4>
+        <app-wrapper></app-wrapper>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <app-child
+      [primitiveData]="primitiveData"
+      [nonPrmitiveData]="nonPrmitiveData"
+    ></app-child>
+  </div>
+</div>

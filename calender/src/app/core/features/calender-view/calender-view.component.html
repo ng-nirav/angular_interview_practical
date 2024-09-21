@@ -1,0 +1,105 @@
+<mat-card>
+  <div class="calendar-container">
+    <mat-toolbar color="primary">
+      <button
+        mat-icon-button
+        (click)="previousMonth()"
+        aria-label="Previous month"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <span class="toolbar-spacer"></span>
+
+      <span class="toolbar-title">{{ currentDate | date : "MMMM yyyy" }}</span>
+
+      <span class="toolbar-spacer"></span>
+
+      <button mat-icon-button (click)="nextMonth()" aria-label="Next month">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="content">
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="openAppointmentForm()"
+        >
+          Add Appointment
+        </button>
+      </mat-card-actions>
+    </div>
+
+    <mat-card-content>
+      <div class="day-names-grid">
+        <div
+          class="day-name"
+          *ngFor="
+            let day of [
+              'Sunday',
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday',
+              'Saturday'
+            ]
+          "
+        >
+          {{ day }}
+        </div>
+      </div>
+
+      <div class="calendar-grid" cdkDropListGroup>
+        <div
+          class="calendar-day"
+          *ngFor="let i = index; let day; of: [].constructor(firstDayOffset)"
+        >
+          <!-- Empty cells to offset the first day -->
+          <div class="day-header"></div>
+        </div>
+
+        <div
+          class="calendar-day"
+          *ngFor="let day of daysInMonth; let i = index"
+        >
+          <div class="day-header">
+            {{ day.date.getDate() }}
+          </div>
+
+          <div
+            cdkDropList
+            [cdkDropListData]="getAppointmentsForDay(day.date) | async"
+            class="events-container"
+            (cdkDropListDropped)="onDrop($event, day.date)"
+          >
+            <ng-container
+              *ngIf="getAppointmentsForDay(day.date) | async as appointments"
+            >
+              <div
+                *ngFor="let appointment of appointments"
+                cdkDrag
+                [cdkDragData]="appointment"
+                tabindex="0" 
+                (keydown.enter)="openData(appointment)" 
+                (keydown.space)="openData(appointment)" 
+                (click)="openData(appointment)"
+                class="appointment"
+              >
+                {{ appointment.title }}
+                <button
+                  mat-icon-button
+                  (click)="deleteAppointment(appointment.id)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </div>
+</mat-card>

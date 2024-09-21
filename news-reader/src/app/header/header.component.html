@@ -1,0 +1,51 @@
+<div class="main d-flex">
+  <div class="col-6">
+    <div class="container">
+      <mat-form-field class="w-100">
+        <mat-label>Search bar</mat-label>
+        <input matInput placeholder="Search News" #inputSearch [(ngModel)]="searBarValue"/>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="col-2">
+    <mat-form-field class="w-100">
+      <mat-label>Select Country</mat-label>
+      <mat-select
+        [ngModel]="countryName()"
+        (ngModelChange)="countryChange($event)"
+      >
+        @for (item of COUNTRY_LIST; track $index) {
+        <mat-option [value]="item">{{ item }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-3">
+    <mat-form-field
+      class="w-100"
+      (click)="rangePicker.open()"
+      [formGroup]="dateRangeForm"
+    >
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input
+          matStartDate
+          placeholder="Start date"
+          formControlName="from"
+        />
+        <input matEndDate placeholder="End date" formControlName="to" />
+      </mat-date-range-input>
+      <mat-hint *ngIf="dateRangeForm.invalid">Please enter a valid Date Range</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="rangePicker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Cancel</button>
+          <button mat-raised-button matDateRangePickerApply>Apply</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
+  </div>
+</div>

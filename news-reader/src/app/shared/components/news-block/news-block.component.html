@@ -1,0 +1,14 @@
+<mat-card class="card-surface" appearance="outlined" (click)="openDetailsPage()">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>{{ article().title }}</mat-card-title>
+      <mat-card-subtitle>{{article().author}}</mat-card-subtitle>
+      <img
+        mat-card-sm-image
+        [src]="article().urlToImage"
+        onerror="this.src='https://material.angular.io/assets/img/examples/shiba2.jpg'"
+      />
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>{{article().description}}</mat-card-content>
+</mat-card>

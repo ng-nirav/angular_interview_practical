@@ -1,0 +1,41 @@
+<h1>Child Component</h1>
+<span>(onPush Change Detection)</span>
+<div class="container-fluid">
+  <div class="col-6">
+    <h4>Primitive Data Type</h4>
+    <p><b>Value</b>: {{ primitiveData }}</p>
+  </div>
+  <div class="col-6">
+    <h4>Non-primitive Data type</h4>
+    <p><b>randomNumber</b> : {{ nonPrmitiveData.randomNumber }}</p>
+    <p><b>randomText</b>: {{ nonPrmitiveData.randomText }}</p>
+  </div>
+  <div class="row">
+    <h4>Manually Invoke Change Detection On OnPush Change Detection</h4>
+    <div class="col-3">
+      <button class="btn btn-success col-auto" (click)="clickEvent()">
+        Click Event
+      </button>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-success col-auto" (click)="invokeDetection()">
+        Change Detection
+      </button>
+    </div>
+    <div class="row">
+      incase there will be any Input changes that time also the non-primitve
+      Data Will be updated to the latest state (Component changes will be
+      synced)
+    </div>
+  </div>
+  <div class="row">
+    <h4>
+      Service state(Component level: using Provider Array injecting
+      Dependencies create new instance of service)
+    </h4>
+    <p><b>Counter Value</b>: {{ count }}</p>
+    <button class="btn btn-success col-auto" (click)="updateCount()">
+      Update Counter State
+    </button>
+  </div>
+</div>

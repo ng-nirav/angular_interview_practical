@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <header>
+    <nr-header (onFilterChange)="onFilterChange($event)"></nr-header>
+  </header>
+  <section>
+    <div class="container article-list">
+      <ng-container *ngIf="!isAPIError; else errorMessage">
+        <ng-container *ngIf="newArticleList().length > 0; else noRecord">
+          @for (item of newArticleList(); track $index) { @defer (on viewport;)
+          {
+          <nr-news-block [article]="item" />
+          } @placeholder {
+          <h6>Loading...</h6>
+          } @error {
+          <h1>Please Try again</h1>
+          }}
+        </ng-container>
+        <ng-template #noRecord>
+          <div class="no-record d-flex flex-column">
+            <h4>No Article Found</h4>
+            <p>Please, Try adjusting filters</p>
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-template #errorMessage>
+        <div class="no-record">
+          <h4>Try again after sometime</h4>
+        </div>
+      </ng-template>
+
+    </div>
+  </section>
+</div>
